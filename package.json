@@ -1,6 +1,7 @@
 {
   "name": "my-bpmn-editor",
   "version": "0.1.0",
+  "homepage": "https://<your-username>.github.io/<your-repo-name>",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
@@ -19,6 +20,10 @@
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "ajv": "^8.0.0",
+    "ajv-keywords": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
