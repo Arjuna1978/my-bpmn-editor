@@ -10,10 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  BUILD_PATH: "." # default value when not using subfolders
-  # BUILD_PATH: subfolder
-
 jobs:
   build_site:
     runs-on: ubuntu-latest
