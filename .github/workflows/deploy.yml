@@ -22,23 +22,19 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          # If package-lock.json is in a subfolder, add:
-          # cache-dependency-path: YOUR_SUBFOLDER_NAME/package-lock.json
 
       - name: Install dependencies
-        # This runs npm install inside the specific folder
+        # Ensure this completes without error
         run: npm install
-        working-directory: . # Change this to YOUR_SUBFOLDER_NAME if needed
 
       - name: Build
+        # This will now find react-scripts because npm install succeeded
         run: npm run build
-        working-directory: . # Change this to YOUR_SUBFOLDER_NAME if needed
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          # This must point to where the 'build' folder actually is
-          path: './build/' # Change to 'YOUR_SUBFOLDER_NAME/build/' if needed
+          path: 'build/'
 
   deploy:
     needs: build_site
