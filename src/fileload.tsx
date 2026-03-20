@@ -15,7 +15,6 @@ const FileLoad: React.FC<FileLoadProps> = ({ onXmlLoaded }) => {
     reader.onload = (e) => {
       const xml = e.target?.result as string;
       onXmlLoaded(xml);
-      
       // Reset input so the same file can be uploaded twice if needed
       if (fileInputRef.current) fileInputRef.current.value = '';
     };
