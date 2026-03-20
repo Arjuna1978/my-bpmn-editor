@@ -24,7 +24,6 @@ const BpmnModeller: React.FC = () => {
     };
   }, []);
 
-  // Bridge logic: View sends XML -> Controller calls Process
   const handleLoadXml = async (xml: string) => {
     try {
       if (engineRef.current) {
@@ -36,11 +35,18 @@ const BpmnModeller: React.FC = () => {
     }
   };
 
+  const handleExport = async () => {
+  if (engineRef.current) {
+    const xml = await engineRef.current.export(); // Call the Process
+    exportToBpmn(xml, 'my-process.bpmn'); // Call the Utility
+  }
+};
+
   return (
     <div className="bpmn-container">
       <div style={{ padding: '10px', background: '#eee', borderBottom: '1px solid #ccc' }}>
         <LoadButton onXmlLoaded={handleLoadXml} />
-        <SaveButton onExport={() => {exportToBpmn}} />
+        <SaveButton onExport= {handleExport} />
       </div>
       <div 
         ref={containerRef} 
