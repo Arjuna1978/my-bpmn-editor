@@ -2,8 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,17 +24,16 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # Ensure this completes without error
         run: npm install
 
       - name: Build
-        # This will now find react-scripts because npm install succeeded
         run: npm run build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/'
+          # this should match the `outDir` in your vite config (default is dist)
+          path: './dist'
 
   deploy:
     needs: build_site
