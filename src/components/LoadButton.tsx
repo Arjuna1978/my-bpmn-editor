@@ -1,10 +1,13 @@
 import React, { useRef } from 'react';
+import "../App.css";
 
 interface LoadButtonProps {
   onXmlLoaded: (xml: string) => void;
 }
 
-export const LoadButton: React.FC<LoadButtonProps> = ({ onXmlLoaded }) => {
+
+
+export function LoadButton({ onXmlLoaded }: LoadButtonProps): React.JSX.Element {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +18,7 @@ export const LoadButton: React.FC<LoadButtonProps> = ({ onXmlLoaded }) => {
     reader.onload = (e) => {
       const xml = e.target?.result as string;
       onXmlLoaded(xml); // Pass the raw data up
-      
+
       if (fileInputRef.current) fileInputRef.current.value = '';
     };
     reader.readAsText(file);
@@ -23,9 +26,8 @@ export const LoadButton: React.FC<LoadButtonProps> = ({ onXmlLoaded }) => {
 
   return (
     <>
-      <button 
+      <button className="button"
         onClick={() => fileInputRef.current?.click()}
-        style={{ padding: '8px 16px', cursor: 'pointer' }}
       >
         Open BPMN
       </button>
@@ -34,8 +36,7 @@ export const LoadButton: React.FC<LoadButtonProps> = ({ onXmlLoaded }) => {
         ref={fileInputRef}
         style={{ display: 'none' }}
         accept=".bpmn, .xml"
-        onChange={handleFileChange}
-      />
+        onChange={handleFileChange} />
     </>
   );
-};
+}

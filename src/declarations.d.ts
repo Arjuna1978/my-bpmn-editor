@@ -1,10 +1,10 @@
-// This tells TypeScript that CSS files are valid modules
+//This is what I use to tell TS custom types
 declare module "*.css" {
   const content: { [className: string]: string };
   export default content;
 }
 
-// 
+//
 declare module 'bpmn-js/lib/Modeler' {
   export default class Modeler {
     constructor(options?: any);
@@ -27,4 +27,21 @@ declare module 'bpmn-js/lib/Viewer' {
     on(event: string, callback: Function): void;
     detach(): void;
   }
+}
+
+declare module '*?raw' {
+  const content: string;
+  export default content;
+}
+
+declare module '*.bpmn' {
+  const content: string;
+  export default content;
+}
+
+declare module '*.svg' {
+  import React = require('react');
+  export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+  const src: string;
+  export default src;
 }

@@ -1,22 +1,38 @@
-// src/BpmnModeller.tsx
-import React, { useLayoutEffect, useRef } from 'react';
-import { LoadButton } from './LoadButton'; // New separate View
-import { SaveButton } from './SaveButton';
+import React, { useLayoutEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { BpmnEngine } from '../services/bpmnEngine';
 import { exportToBpmn } from '../services/exportToBpmn';
-import 'bpmn-js/dist/assets/diagram-js.css';
-import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
-import 'bpmn-js/dist/assets/bpmn-js.css';
 
-const BpmnModeller: React.FC = () => {
+export interface BpmnModellerHandle {
+  importXml: (xml: string) => Promise<void>;
+  exportXml: () => Promise<void>;
+}
+
+const BpmnModeller = forwardRef<BpmnModellerHandle>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<BpmnEngine | null>(null);
 
+  // Expose methods to the parent (App.tsx)
+  useImperativeHandle(ref, () => ({
+    async importXml(xml: string) {
+      if (engineRef.current) await engineRef.current.import(xml);
+    },
+    async exportXml() {
+      if (engineRef.current) {
+        const xml = await engineRef.current.export();
+        exportToBpmn(xml, 'my-process.bpmn');
+      }
+    }
+  }));
+
   useLayoutEffect(() => {
     if (!containerRef.current || engineRef.current) return;
-
+    
     engineRef.current = new BpmnEngine(containerRef.current);
     engineRef.current.create();
+
+    // Load your default diagram immediately after creation
+    const defaultBpmn = `YOUR_XML_STRING_HERE`;
+    engineRef.current.import(defaultBpmn);
 
     return () => {
       engineRef.current?.destroy();
@@ -24,36 +40,7 @@ const BpmnModeller: React.FC = () => {
     };
   }, []);
 
-  const handleLoadXml = async (xml: string) => {
-    try {
-      if (engineRef.current) {
-        await engineRef.current.import(xml);
-      }
-    } catch (err) {
-      console.error('Import failed', err);
-      alert('Failed to load BPMN file.');
-    }
-  };
-
-  const handleExport = async () => {
-  if (engineRef.current) {
-    const xml = await engineRef.current.export(); // Call the Process
-    exportToBpmn(xml, 'my-process.bpmn'); // Call the Utility
-  }
-};
-
-  return (
-    <div className="bpmn-container">
-      <div style={{ padding: '10px', background: '#eee', borderBottom: '1px solid #ccc' }}>
-        <LoadButton onXmlLoaded={handleLoadXml} />
-        <SaveButton onExport= {handleExport} />
-      </div>
-      <div 
-        ref={containerRef} 
-        style={{ width: '100%', height: '85vh', border: '1px solid #ccc' }}
-      />
-    </div>
-  );
-};
+  return <div ref={containerRef} className="bpmn-canvas" />;
+});
 
 export default BpmnModeller;

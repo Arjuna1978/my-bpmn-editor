@@ -1,15 +1,18 @@
 
 import React from 'react';
+import "../App.css";
+
+
 
 interface ExportButtonProps {
   onExport: () => void;
 }
 
-export const SaveButton: React.FC<ExportButtonProps> = ({ onExport }) => (
-  <button 
-    onClick={onExport}
-    style={{ padding: '8px 16px', cursor: 'pointer', marginLeft: '10px' }}
-  >
-    Save BPMN
-  </button>
-);
+export function SaveButton({ onExport }: ExportButtonProps): React.JSX.Element {
+  return (
+    <button className="button"
+      onClick={onExport}>
+      Save
+    </button>
+  );
+}
