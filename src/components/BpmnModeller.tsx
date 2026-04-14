@@ -1,9 +1,9 @@
 // src/BpmnModeller.tsx
 import React, { useLayoutEffect, useRef } from 'react';
-import { LoadButton } from './components/LoadButton'; // New separate View
-import { SaveButton } from './components/SaveButton';
-import { BpmnEngine } from './services/bpmnEngine';
-import { exportToBpmn } from './services/exportToBpmn';
+import { LoadButton } from './LoadButton'; // New separate View
+import { SaveButton } from './SaveButton';
+import { BpmnEngine } from '../services/bpmnEngine';
+import { exportToBpmn } from '../services/exportToBpmn';
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';

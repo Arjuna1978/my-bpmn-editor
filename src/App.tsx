@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import BpmnModeller from './BpmnModeller';
+import BpmnModeller from './components/BpmnModeller';
 
 function App() {
   return (
