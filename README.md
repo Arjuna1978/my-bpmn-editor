@@ -1,3 +1,3 @@
 # BPMN React App
 
-This implementation of 
+This is a simple implemenation of BPMN.js
