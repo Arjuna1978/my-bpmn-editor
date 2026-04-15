@@ -10,7 +10,7 @@ interface ExportButtonProps {
 
 export function SaveButton({ onExport }: ExportButtonProps): React.JSX.Element {
   return (
-    <button className="button"
+    <button className="button-7" role ="button"
       onClick={onExport}>
       Save
     </button>

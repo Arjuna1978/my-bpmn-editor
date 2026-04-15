@@ -26,10 +26,10 @@ export function LoadButton({ onXmlLoaded }: LoadButtonProps): React.JSX.Element 
 
   return (
     <>
-      <button className="button"
+      <button className="button-7" role ="button"
         onClick={() => fileInputRef.current?.click()}
       >
-        Open BPMN
+        Open
       </button>
       <input
         type="file"
