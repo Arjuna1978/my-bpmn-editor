@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "VizFlow",
+  "name": "Allow the modeling of business processes",
   "icons": [
     {
       "src": "favicon.ico",
