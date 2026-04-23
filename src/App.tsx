@@ -1,4 +1,4 @@
-import  { useRef, useEffect } from "react";
+import  { useRef, useEffect, useState } from "react";
 import "./App.css";
 import defaultXml from "./resources/default.bpmn?raw";
 import BpmnModeller, { BpmnModellerHandle } from "./components/BpmnModeller";
@@ -10,30 +10,38 @@ import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
 import "bpmn-js/dist/assets/bpmn-js.css";
 
 function App() {
-  const modellerRef = useRef<BpmnModellerHandle>(null);
 
-  // Automatically load the default diagram once the modeller is ready
+  const modellerRef = useRef<BpmnModellerHandle>(null);
+  const [fileName, setFileName] = useState<string>("my-process.bpmn");
+
+
   useEffect(function () {
     if (modellerRef.current && defaultXml) {
       modellerRef.current.importXml(defaultXml);
     }
   }, []);
 
-  function handleLoadXml(xml: string) {
+  // callback for file loading service
+  function handleLoadXml({ xml, fileName }: { xml: string; fileName: string }) {
+    setFileName(fileName);
     return modellerRef.current?.importXml(xml);
   }
-  function handleExport() {
-    return modellerRef.current?.exportXml();
+  
+  async function handleExportBPMN() {
+    const savedFileName = await modellerRef.current?.exportXml(fileName);
+    if (savedFileName) {
+      setFileName(savedFileName);
+    }
   }
 
   return (
     <div className="app">
       <header className="floating-header">
         <img src={logo} alt="Logo" width="50px" />
-        <h1 className="app-title">Arjuna's BPMN Workflow Editor</h1>
+        <h1 className="app-title">VizFlo</h1>
         <div className="app-toolbar">
           <LoadButton onXmlLoaded={handleLoadXml} />
-          <SaveButton onExport={handleExport} />
+          <SaveButton onExport={handleExportBPMN} />
         </div>
       </header>
       <main className="app-main">

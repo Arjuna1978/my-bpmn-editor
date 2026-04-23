@@ -1,10 +1,10 @@
 import React, { useLayoutEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { BpmnEngine } from '../services/bpmnEngine';
-import { exportToBpmn } from '../services/exportToBpmn';
+import exportToBpmn from '../services/exportToBpmn';
 
 export interface BpmnModellerHandle {
   importXml: (xml: string) => Promise<void>;
-  exportXml: () => Promise<void>;
+  exportXml: (fileName: string) => Promise<void>;
 }
 
 const BpmnModeller = forwardRef<BpmnModellerHandle>((props, ref) => {
@@ -16,10 +16,10 @@ const BpmnModeller = forwardRef<BpmnModellerHandle>((props, ref) => {
     async importXml(xml: string) {
       if (engineRef.current) await engineRef.current.import(xml);
     },
-    async exportXml() {
+    async exportXml(fileName: string) {
       if (engineRef.current) {
         const xml = await engineRef.current.export();
-        exportToBpmn(xml, 'my-process.bpmn');
+        exportToBpmn({xml, fileName});
       }
     }
   }));
