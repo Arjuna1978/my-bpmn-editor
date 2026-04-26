@@ -1,18 +1,23 @@
-
-import React from 'react';
+import React from "react";
 import "../App.css";
 
-
-
 interface ExportButtonProps {
+  label?: string;
+  SvgImage?: string;
   onExport: () => void;
 }
 
-export function SaveButton({ onExport }: ExportButtonProps): React.JSX.Element {
+export function SaveButton({
+  SvgImage,
+  label,
+  onExport,
+}: ExportButtonProps): React.JSX.Element {
   return (
-    <button className="button-7" role ="button"
-      onClick={onExport}>
-      Save
+    <button className="button-7" role="button" onClick={onExport}>
+      {SvgImage && (
+        <img src={SvgImage} alt="" style={{ width: "20px", height: "20px" }} />
+      )}
+      {label || "Save"}
     </button>
   );
 }
