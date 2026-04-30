@@ -1,3 +1,8 @@
+/* Global declaration */
+:root {
+  --primary-color: #3498db;
+  --main-padding: 15px;
+}
 .app {
   position: relative;
   height: 100vh;
@@ -43,48 +48,45 @@
   height: 100%;
   width: 100%;
 }
-.button-7 {
-  background-color: #0095ff;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  /* Layout: Stacking items vertically */
+
+/*download*/
+.cute-botton {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 10px;
-  
-  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.15385;
-  margin: 0;
+  width: 60px;
+  height: 45px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
   outline: none;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  white-space: nowrap;
+  transition: all 0.2s ease-in-out;
+  background: #f0f0f0; /* Match this to your page background */
+  box-shadow: 10px 10px 20px #bebebe, 
+  -10px -10px 20px #ffffff;
 }
 
-.button-7:hover,
-.button-7:focus {
-  background-color: #07c;
+/* Subtle Hover: Slightly increase depth */
+.cute-botton:hover {
+  box-shadow: 12px 12px 25px #b1b1b1, -12px -12px 25px #ffffff;
 }
 
-.button-7:focus {
-  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+/* Button Press: Create the 'inset' effect */
+.cute-botton:active {
+  box-shadow: inset 6px 6px 12px #bebebe, 
+             inset -6px -6px 12px #ffffff;
+  
+  /* Adding a subtle dark tint to the top-left to simulate depth */
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  
+  transform: scale(0.98); /* Optional: slight shrink for tactile feel */
 }
 
-.button-7:active {
-  background-color: #0064bd;
-  box-shadow: none;
+/* Icon Styling */
+.cute-botton svg {
+  width: 50px;
+  height: 50px;
+  fill: #333;
 }

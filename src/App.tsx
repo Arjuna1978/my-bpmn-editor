@@ -53,8 +53,8 @@ function App() {
         <h1 className="app-title">VizFlo</h1>
         <div className="app-toolbar">
           <LoadButton onXmlLoaded={handleLoadXml} />
-          <SaveButton label = "BPMN" onExport={handleExportBPMN} />
-          <SaveButton SvgImage = {downImage} onExport={handleExportSVG} />
+          <SaveButton label = "BPMN" SvgImage = {downImage} onExport={handleExportBPMN} />
+          <SaveButton label = "SVG" SvgImage = {downImage} onExport={handleExportSVG} />
         </div>
       </header>
       <main className="app-main">
