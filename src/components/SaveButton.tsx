@@ -13,10 +13,11 @@ export function SaveButton({
   onExport,
 }: ExportButtonProps): React.JSX.Element {
   return (
-    <button className="cute-botton"  onClick={onExport}>
+    <button className="panel-button"  onClick={onExport}>
       {SvgImage && (
         <img src={SvgImage} alt="" style={{ width: "20px", height: "20px" }} />
       )}
+      
       {label || "Save"}
     </button>
   );

@@ -1,8 +1,15 @@
 /* Global declaration */
 :root {
-  --primary-color: #3498db;
-  --main-padding: 15px;
+  --primary-color: #f0f0f0;
+  --primary-color-100T: #f0f0f000;
+
+  --primary-shadow:
+    box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+  --main-padding: 5px;
+  --panel-roundess: 8px;
+  /*roundedness*/
 }
+
 .app {
   position: relative;
   height: 100vh;
@@ -10,19 +17,25 @@
   overflow: hidden;
 }
 
+.app-main,
+.bpmn-canvas {
+  height: 100%;
+  width: 100%;
+}
+
 .floating-header {
   position: absolute;
+  flex-direction: column;
+
   top: 0;
-  left: 0;
+  left: 10px;
   right: 0;
   height: 60px;
+  width: 100px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  background: rgba(255, 255, 255, 0.3); /* Glassmorphism/Transparent effect */
-  backdrop-filter: blur(5px); /* Blurs diagram behind the header */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  z-index: 100; /* Ensures it stays above the BPMN canvas */
+  padding: 5px 20px;
+  z-index: 99; /* Ensures it stays above the BPMN canvas */
   pointer-events: none; /* Allows clicking through empty areas of header */
 }
 
@@ -33,60 +46,144 @@
   pointer-events: auto; /* Re-enable clicks for the title text if needed */
 }
 
-.app-toolbar {
+/*master look and feel for panels*/
+.panel-master {
+  position: absolute;
+  top: 15px;
+  left: 250px;
+  right: 0;
+  height: 50px !important;
   display: flex;
-  gap: 10px;
-  pointer-events: auto; /* Re-enable clicks for the buttons */
+  width: fit-content !important;
+  height: fit-content;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  pointer-events: auto;
+  border: none !important;
+  background: var(--primary-color) !important;
+  box-shadow: var(--primary-shadow) !important;
+  border-radius: var(--panel-roundess) !important;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 5px;
+  z-index: 120;
 }
 
-.app-main {
-  height: 100%;
-  width: 100%;
-}
+/*master look and feel for panels*/
+.code-block {
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 150;
+  background: var(--primary-color) !important;
+  border: none;
+  box-shadow: var(--primary-shadow) !important;
 
-.bpmn-canvas {
-  height: 100%;
-  width: 100%;
-}
-
-/*download*/
-.cute-botton {
+  border-radius: var(--panel-roundess) !important;
+  padding: 16px;
+  width: 550px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
+}
+
+.code-buttons {
+}
+
+.panel-button {
+  background: var(--primary-color) !important;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px !important;
+  border-radius: 5px !important;
+  transition: all 0.2s ease-in-out !important; /* Same transition as App.css */
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 45px;
-  border-radius: 3px;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  transition: all 0.2s ease-in-out;
-  background: #f0f0f0; /* Match this to your page background */
-  box-shadow: 10px 10px 20px #bebebe, 
-  -10px -10px 20px #ffffff;
 }
 
-/* Subtle Hover: Slightly increase depth */
-.cute-botton:hover {
-  box-shadow: 12px 12px 25px #b1b1b1, -12px -12px 25px #ffffff;
+/* Hover state: Increased depth */
+.panel-button:hover {
+  box-shadow:
+    5px 5px 10px #b1b1b1,
+    -5px -5px 10px #ffffff !important;
+  background-color: #f0f0f0 !important;
+  transform: translateY(-1px);
 }
 
-/* Button Press: Create the 'inset' effect */
-.cute-botton:active {
-  box-shadow: inset 6px 6px 12px #bebebe, 
-             inset -6px -6px 12px #ffffff;
-  
-  /* Adding a subtle dark tint to the top-left to simulate depth */
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  border-left: 1px solid rgba(0, 0, 0, 0.05);
-  
-  transform: scale(0.98); /* Optional: slight shrink for tactile feel */
+/* Active/Press state */
+
+.panel-button:active {
+  box-shadow:
+    inset 3px 3px 6px #bebebe,
+    inset -3px -3px 6px #ffffff !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transform: scale(0.95) !important;
 }
 
-/* Icon Styling */
-.cute-botton svg {
-  width: 50px;
-  height: 50px;
-  fill: #333;
+/* Ensure the icons inside stay dark */
+.panel-button:before {
+  color: #333 !important;
+  font-size: 20px !important;
+}
+
+/* Container adjustments to match the square, clean look */
+.djs-palette {
+  top: 20% !important;
+  left: auto !important;
+  right: 20px !important;
+  width: 100px !important;
+  border: none !important;
+  background: var(--primary-color) !important;
+  box-shadow: var(--primary-shadow) !important;
+  border-radius: var(--panel-roundess) !important;
+  padding: 5px !important;
+}
+
+/* Align */
+.djs-palette .entry {
+  background: #f0f0f0 !important;
+  border: none !important;
+  margin-bottom: 8px !important;
+  border-radius: 5px !important;
+  transition: all 0.2s ease-in-out !important; /* Same transition as App.css */
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover state: Increased depth */
+.djs-palette .entry:hover {
+  box-shadow:
+    5px 5px 10px #b1b1b1,
+    -5px -5px 10px #ffffff !important;
+  background-color: #f0f0f0 !important;
+  transform: translateY(-1px);
+}
+
+/* Active/Press state */
+
+.djs-palette .entry:active {
+  box-shadow:
+    inset 3px 3px 6px #bebebe,
+    inset -3px -3px 6px #ffffff !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transform: scale(0.95) !important;
+}
+
+/* Ensure the icons inside stay dark */
+.djs-palette .entry::before {
+  color: #333 !important;
+  font-size: 20px !important;
 }

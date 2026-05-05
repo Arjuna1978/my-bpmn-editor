@@ -5,8 +5,13 @@ import defaultXml from "./resources/default.bpmn?raw";
 import BpmnModeller, { BpmnModellerHandle } from "./services/BpmnModeller";
 import { LoadButton } from "./components/LoadButton";
 import { SaveButton } from "./components/SaveButton";
+import{LoadTextButton} from "./components/LoadTextButton";
 import logo from "./resources/logo.svg";
 import downImage from "./resources/down.svg"
+import upImage from "./resources/up.svg"
+import txtImage from "./resources/codePad.svg"
+import playImage from "./resources/play.svg"
+import stopImage from "./resources/cancel.svg"
 import "bpmn-js/dist/assets/diagram-js.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
 import "bpmn-js/dist/assets/bpmn-js.css";
@@ -14,7 +19,7 @@ import "bpmn-js/dist/assets/bpmn-js.css";
 function App() {
 
   const modellerRef = useRef<BpmnModellerHandle>(null);
-    const hasImportedRef = useRef(false);
+  const hasImportedRef = useRef(false);
   const [fileName, setFileName] = useState<string>("my-process.bpmn");
 
 
@@ -29,7 +34,7 @@ function App() {
     setFileName(fileName);
     return modellerRef.current?.importXml(xml);
   }
-  
+
   async function handleExportBPMN() {
     const savedFileName = await modellerRef.current?.exportXml(fileName);
     if (savedFileName) {
@@ -48,13 +53,14 @@ function App() {
       <header className="floating-header">
         <img src={logo} alt="Logo" width="50px" />
         <h1 className="app-title">VizFlo</h1>
-        <div className="app-toolbar">
-          <LoadButton onXmlLoaded={handleLoadXml} />
+      </header>
+      <main className="app-main">
+         <div className= "panel-master">
+          <LoadButton label = "BPMN" SvgImage = {upImage} onXmlLoaded={handleLoadXml} />
+          <LoadTextButton label = "Code" PlayImage = {playImage} StopImage = {stopImage} SvgImage = {txtImage} onXmlLoaded={handleLoadXml} />
           <SaveButton label = "BPMN" SvgImage = {downImage} onExport={handleExportBPMN} />
           <SaveButton label = "SVG" SvgImage = {downImage} onExport={handleExportSVG} />
         </div>
-      </header>
-      <main className="app-main">
         <BpmnModeller ref={modellerRef} />
       </main>
     </div>

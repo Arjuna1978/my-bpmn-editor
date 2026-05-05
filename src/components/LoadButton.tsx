@@ -1,11 +1,15 @@
 import React, { useRef } from "react";
 
 interface LoadButtonProps {
-  onXmlLoaded: (options: { xml: string; fileName: string }) => void;
+  label?: string;
+  SvgImage?: string;
+  onXmlLoaded: (options: {xml: string; fileName: string }) => void;
 }
 
 export function LoadButton({
   onXmlLoaded,
+  label,
+  SvgImage,
 }: LoadButtonProps): React.JSX.Element {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,12 +35,16 @@ export function LoadButton({
   return (
     <>
       <button
-        className="button-7"
+        className="panel-button"
         role="button"
         onClick={handleClick}
       >
-        Open
+          {SvgImage && (
+        <img src={SvgImage} alt="" style={{ width: "20px", height: "20px" }} />
+      )}
+      {label || "Save"}
       </button>
+
       <input
         type="file"
         ref={fileInputRef}
